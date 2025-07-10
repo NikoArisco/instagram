@@ -12,7 +12,16 @@ const Login = () => {
 
   const isInvalid = password === "" || emailAddress === "";
 
-  const handleLogin = () => {};
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      await firebase.auth().signInWithEmailAndPassword(emailAddress, password);
+    } catch (error) {
+      setEmailAddress("");
+      setPassword("");
+      setError(error.message);
+    }
+  };
 
   useEffect(() => {
     document.title = "Login - Instagram";
